@@ -57,7 +57,9 @@ import javax.swing.filechooser.FileFilter;
  * @author jasper
  */
 public class Frame extends JFrame{
-
+	
+	private static final long serialVersionUID = 2066844175168537569L;
+	
 	public static final String newline = System.getProperty("line.separator");
 	public static String antInstallation;
 	public static String appBundlerLocation;
@@ -330,15 +332,16 @@ public class Frame extends JFrame{
 		Process bundleApp;
 		try {
 			bundleApp = Runtime.getRuntime().exec(antInstallation + " bundle-app", new String[]{},parent);
-			Scanner s = new Scanner(bundleApp.getInputStream());
-			while (s.hasNext()){
-				try{
-					String next = s.nextLine();
-					enterText(next);
-				}catch (java.util.NoSuchElementException e){
+			try (Scanner s = new Scanner(bundleApp.getInputStream())) {
+				while (s.hasNext()){
+					try{
+						String next = s.nextLine();
+						enterText(next);
+					}catch (java.util.NoSuchElementException e){
+					}
 				}
 			}
-
+			
 			enterText("Deleting build.xml...");
 			// Delete build.xml
 			buildDotXML.delete();

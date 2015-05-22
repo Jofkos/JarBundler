@@ -107,10 +107,11 @@ public class OpenAndSaveFileManager {
 			});
 			fileChooser.showOpenDialog(frame);
 			File openedFile = fileChooser.getSelectedFile();
-			Scanner scanner = new Scanner(openedFile);
 			List<String> list = new ArrayList<>();
-			while(scanner.hasNext()){
-				list.add(scanner.nextLine());
+			try (Scanner scanner = new Scanner(openedFile)) {
+				while(scanner.hasNext()){
+					list.add(scanner.nextLine());
+				}
 			}
 			
 			frame.outputDirectoryField.setText(list.get(1));

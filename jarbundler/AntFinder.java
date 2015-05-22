@@ -46,6 +46,8 @@ import javax.swing.filechooser.FileSystemView;
  * @author jasper
  */
 public class AntFinder extends JFrame{
+	
+	private static final long serialVersionUID = -403330215787901378L;
 
 	public AntFinder() throws HeadlessException {
 		super("JarBundler");
